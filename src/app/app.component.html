@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<mat-drawer-container id="drawer-container">
+
+    <!-- Sidenav content -->
+    <mat-drawer mode="over" id="side-drawer" [opened]="isOpen">
+        <div>
+            <!-- 
+                Use the click navigate function to reroute to different pages here so that
+                we can automatically close the sidenav on navigation
+             -->
+            <button
+                class="standard"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(255, 178, 255, 0.8)"
+                (click)="navigate('view-recipes')">
+                View Recipes
+            </button>
+
+            <button
+                class="standard"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(255, 178, 255, 0.8)"
+                (click)="navigate('quick-tips')">
+                Quick Tips
+            </button>
+
+            <button
+                class="standard green"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(94, 252, 130, 0.8)"
+                (click)="navigate('add-recipe')">
+                Add Recipe
+            </button>
+
+            <button
+                class="standard green"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(94, 252, 130, 0.8)"
+                (click)="navigate('add-tip')">
+                Add Tip
+            </button>
+
+        </div>
+    </mat-drawer>
+
+    <!-- Main content of the site -->
+    <mat-drawer-content (scroll)="scrollEvent($event)">
+    <!-- <mat-drawer-content style="overflow-y: scroll;"> -->
+        <main class="container">
+            <router-outlet></router-outlet>
+        </main>
+    </mat-drawer-content>
+
+</mat-drawer-container>

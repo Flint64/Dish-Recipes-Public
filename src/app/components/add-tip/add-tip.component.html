@@ -1,0 +1,66 @@
+<div class="spinner" *ngIf="spinnerActive">
+    <mat-progress-spinner
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    <p class="title">{{spinnerText}}</p>
+</div>
+
+<form [formGroup]="tipForm" (ngSubmit)="onSubmit()" *ngIf="!spinnerActive" >
+    
+    <p class="title">Add a Tip</p>
+    
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input required matInput type="text" formControlName="title">
+        <button class="icon" type="button" mat-button *ngIf="tipForm.get('title').value !== '' " matSuffix mat-icon-button aria-label="Clear" (click)="recipeForm.get('recipeName').setValue('') ">
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" color="accent" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea required matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="description"> </textarea>
+        <button class="icon" mat-button *ngIf="tipForm.get('description').value !== '' " matSuffix mat-icon-button aria-label="Clear" (click)="recipeForm.get('description').setValue('') ">
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <div id="actionButtons">
+        <button 
+        [disabled]="!tipForm.valid"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        type="submit" 
+        class="standard green">
+        Submit
+    </button>
+
+        <button 
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(255, 178, 255, 0.8)"
+        type="button" 
+        class="standard" 
+        (click)="navigate('')">
+        Cancel
+    </button>
+
+    <button 
+    mat-button 
+    matRipple 
+    matRippleRadius="60"
+    matRippleColor="rgba(139, 0, 0, 0.8)"
+    type="button" 
+    class="standard warn"
+    (click)="deleteTip()"
+    *ngIf="editMode">
+    Delete Tip
+</button>
+    
+</div>
+
+</form>

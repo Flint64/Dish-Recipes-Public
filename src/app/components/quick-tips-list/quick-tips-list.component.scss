@@ -1,0 +1,59 @@
+@use '../../../utilities/variables';
+
+form{
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    padding-top: 5px;
+    z-index: 4;
+    // background-color: ghostwhite;
+    background-color: #fcfaf2;
+    margin-bottom: 15px;
+
+    mat-form-field{
+        width: 75%;
+    }
+}
+
+img{
+    width: 130px;
+}
+
+mat-card{
+    width: 130px;
+    margin: 5px 0px 5px 10px;
+}
+
+.favorite{
+    color: black;
+}
+
+.share{
+    color: variables.$primary-purple-dark;
+}
+
+ngx-masonry{
+    margin-bottom: 20px;
+}
+
+#titleDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.description{
+    white-space: pre-wrap;
+}
+
+.shadow{
+    /* offset-x | offset-y | blur-radius | color */
+    border-top: none;
+    // box-shadow: 0px 3px 8px grey;
+    box-shadow: 0px 10px 12px -5px grey;
+}
+
+mat-card-title{
+    width: 140px;
+    margin-left: -20px;
+}

@@ -1,0 +1,100 @@
+@use '../../../utilities/variables';
+
+form{
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    padding-top: 5px;
+    z-index: 4;
+    background-color: #fcfaf2;
+    margin-bottom: 25px;
+
+    mat-form-field{
+        width: 75%;
+    }
+}
+
+.imgDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; 
+    width: 100%; 
+    overflow: hidden;
+    img{
+        object-fit: cover;
+    };
+}
+
+mat-card{
+    padding: 0;
+    margin-bottom: 20px;
+    width: 85%;
+}
+
+#wrapper{
+    // margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+
+    mat-card-actions{
+        display: flex;
+        justify-content: space-between;
+        h3{ 
+            margin: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+        .recipeTitle{
+            max-width: 65%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    :nth-child(even){
+        align-self: flex-end;
+            mat-card-actions{
+                // display: flex;
+                flex-direction: row-reverse;
+            }
+    }
+}
+
+.favorite{
+    color: black;
+}
+
+.share{
+    color: variables.$primary-purple-dark;
+}
+
+mat-card-content{
+    margin: 0;
+}
+
+mat-card-actions{
+    padding: 16px !important;
+}
+
+mat-divider{
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+#titleDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.shadow{
+    /* offset-x | offset-y | blur-radius | color */
+    border-top: none;
+    // box-shadow: 0px 3px 8px grey;
+    box-shadow: 0px 10px 12px -5px grey;
+}

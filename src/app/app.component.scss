@@ -1,0 +1,31 @@
+@use '../utilities/variables';
+
+#drawer-container #side-drawer{
+    width: 50vw;
+    height: 100%;
+}
+
+#side-drawer{
+    // background-color: whitesmoke;
+    background-color: #fcfaf2;
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        button{
+            display: block;
+        }
+    }
+}
+
+mat-drawer-content{
+    height: calc(100vh - 64px);
+    // background-color: ghostwhite;
+    background-color: #fcfaf2;
+}
+  
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }

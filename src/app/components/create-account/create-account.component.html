@@ -1,0 +1,61 @@
+<div class="spinner" *ngIf="spinnerActive">
+  <mat-progress-spinner
+      color="accent"
+      mode="indeterminate">
+  </mat-progress-spinner>
+  <p class="title">{{spinnerText}}</p>
+</div>
+
+<form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()" *ngIf="!spinnerActive">
+  <p class="title">Sign up</p>
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="email" (blur)="saveEmail()" required>
+      <mat-error *ngIf="createAccountForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="RecipeDude" formControlName="username" (blur)="saveName()" required>
+      <mat-error *ngIf="createAccountForm.controls.username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" required>
+      <mat-error *ngIf="createAccountForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <input type="password" matInput formControlName="confirmPassword" required>
+      <mat-error *ngIf="createAccountForm.controls.confirmPassword.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <p id="passwordDetails">Password must be at least 6 characters long and contain at least 1 capital, special character, and number</p>
+
+    <p> <a routerLink="/log-in">Already have an account? Log in</a> </p>
+
+    <span>
+      <button
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        class="standard green" 
+        type="submit">
+        Sign up
+    </button>
+
+      <button
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(255, 178, 255, 0.8)"
+        class="standard" 
+        type="button" 
+        (click)="navigate('/view-recipes')">
+        Home
+    </button>
+    </span>
+    
+</form>

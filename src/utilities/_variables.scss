@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap'); // font-family: 'Yellowtail', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap'); // font-family: 'Lobster Two', cursive;
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap'); //font-family: 'EB Garamond', serif;
+
+$primary-green: #00c853;
+$primary-green-light: #5efc82;
+$primary-green-dark: #009624;
+
+$primary-purple: #ea80fc;
+$primary-purple-light: #ffb2ff;
+$primary-purple-dark: #b64fc8;
+
+// This overrides the angular material theming. 
+//To override any other theme items, simply use a more specific selector than what the theming.scss uses
+div.mat-form-field-wrapper {
+    padding-bottom: 5px;
+}
+
+.mat-chip-list-wrapper{
+    padding-bottom: 20px;
+}
+
+.mat-chip{
+    background-color: $primary-purple-light !important;;
+}
+
+mat-dialog-container.mat-dialog-container{
+    background-color: #fcfaf2;
+}
+
+mat-card.ingredientCard{
+    margin-bottom: 30px;
+}

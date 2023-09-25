@@ -1,0 +1,45 @@
+<div class="wrapper">
+
+    <p class="title">Profile</p>
+    
+    <button class="standard"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(255, 178, 255, 0.8)"
+        (click)="navigate('/favorites/recipes')">
+        View Favorite Recipes
+    </button>
+
+    <button class="standard"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(255, 178, 255, 0.8)"
+        (click)="navigate('/my/recipes')">
+        My Uploaded Recipes
+    </button>
+    
+    
+    <mat-divider></mat-divider>
+    
+    
+    <button class="standard green"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        View Favorite Tips
+        (click)="navigate('/favorites/tips')">
+        View Favorite Tips
+    </button>
+
+    <button class="standard green"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        (click)="navigate('/my/tips')">
+        My Added Tips
+    </button>
+</div>

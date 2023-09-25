@@ -1,0 +1,55 @@
+<div class="spinner" *ngIf="spinnerActive">
+    <mat-progress-spinner
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    <p class="title">{{spinnerText}}</p>
+</div>
+
+<div class="pageWrapper" *ngIf="!spinnerActive">
+
+    <div id="titleDiv">
+        <p class="title">{{titleText}}</p>
+    </div>
+
+    <form class="filterForm" [formGroup]="filterForm" class="shadow">
+
+        <mat-form-field  appearance="fill" color="accent" appearance="outline">
+            <mat-label>Search Recipes</mat-label>
+            <input matInput #input placeholder="Ex. Chicken" formControlName="recipeSearch">
+        </mat-form-field>
+        
+        <button mat-icon-button class="icon search" type="button" *ngIf="!isSearching && filterForm.controls.recipeSearch.value" (click)="searchRecipes()" > <mat-icon>search</mat-icon> </button>
+        <button mat-icon-button class="icon search" type="button" *ngIf="isSearching" (click)="resetSearch()" > <mat-icon>close</mat-icon> </button>
+
+    </form>
+
+    <div *ngIf="!recipes" class="noData">
+        <p class="title" >{{noDataText}}</p>
+    </div>
+    
+    <div id="wrapper">
+
+        <button mat-fab aria-label="Scroll to top" class="icon fixed" type="button" (click)="scrollToTop()">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+        
+        <mat-card class="example-card mat-elevation-z4" *ngFor="let recipe of recipes let i = index">
+            <div class="imgDiv" (click)="navigate('view-recipes/' + recipe._id)">
+                <img mat-card-image [src]="recipe.imgUrl" alt="Not Found" onerror="this.onerror=null; this.src='../../assets/no_image_found.png'; this.style='object-fit: none; margin-top: 30px;' " >
+            </div>
+            <mat-card-actions>
+            <div>
+                <button mat-icon-button class="icon" *ngIf="!favoriteRecipeIndex[i]"> <mat-icon class="favorite" (click)="favoriteRecipe(recipe._id)">favorite_border</mat-icon> </button>
+                <button mat-icon-button class="icon favorited" *ngIf="favoriteRecipeIndex[i]" > <mat-icon (click)="deleteFavorite(recipe._id)">favorite</mat-icon> </button>
+                <button mat-icon-button class="icon" > <mat-icon class="share" (click)="shareRecipe(recipe._id)">share</mat-icon> </button>
+            </div>
+            <div class="recipeTitle">
+                <h3>{{recipe.name}}</h3>
+            </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>    
+</div>
+
+<!-- <router-outlet></router-outlet> -->

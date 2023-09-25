@@ -1,0 +1,58 @@
+<div class="spinner" *ngIf="spinnerActive">
+    <mat-progress-spinner
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    <p class="title">{{spinnerText}}</p>
+</div>
+
+<div id="wrapper" *ngIf="!spinnerActive">
+
+    <button mat-fab aria-label="Scroll to top" class="icon fixed" type="button" (click)="scrollToTop()">
+        <mat-icon>arrow_upward</mat-icon>
+    </button>
+
+    <div id="titleDiv">
+        <p class="title">{{titleText}}</p>
+    </div>
+
+    <form class="filterForm" [formGroup]="filterForm" class="shadow">
+
+        <mat-form-field  appearance="fill" color="accent" appearance="outline">
+            <mat-label>Search Tips</mat-label>
+            <input matInput #input placeholder="Ex. Temperature" formControlName="tipSearch">
+        </mat-form-field>
+
+        <button mat-icon-button class="icon search" type="button" *ngIf="!isSearching && filterForm.controls.tipSearch.value" (click)="searchTips()" > <mat-icon>search</mat-icon> </button>
+        <button mat-icon-button class="icon search" type="button" *ngIf="isSearching" (click)="resetSearch()" > <mat-icon>close</mat-icon> </button>
+
+    </form>
+
+    <div *ngIf="!tips" class="noData">
+        <p class="title" >{{noDataText}}</p>
+    </div>
+
+    <div>
+    <ngx-masonry>
+        <mat-card *ngFor="let tip of tips let i = index" ngxMasonryItem class="masonry-item" class="example-card mat-elevation-z4">
+
+            <mat-card-header (click)="navigate('quick-tips/' + tip._id)">
+                <mat-card-title>{{tip.title}}</mat-card-title>
+            </mat-card-header>
+
+
+            <mat-card-content (click)="navigate('quick-tips/' + tip._id)">
+            <p class="description">
+                {{tip.description}}
+            </p>
+            </mat-card-content>
+
+            <mat-card-actions>
+            <button mat-icon-button class="icon" > <mat-icon *ngIf="!favoriteTipIndex[i]" class="favorite" (click)="favoriteTip(tip._id)">favorite_border</mat-icon> </button>
+            <button mat-icon-button class="icon favorited" *ngIf="favoriteTipIndex[i]" > <mat-icon (click)="deleteFavorite(tip._id)">favorite</mat-icon> </button>
+            <button mat-icon-button class="icon" > <mat-icon class="share" (click)="shareTip(tip._id)">share</mat-icon> </button>
+            </mat-card-actions>
+            
+        </mat-card>
+    </ngx-masonry>
+</div>

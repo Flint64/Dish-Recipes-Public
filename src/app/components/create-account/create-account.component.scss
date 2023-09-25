@@ -1,0 +1,31 @@
+@use '../../../utilities/variables';
+
+mat-error {
+    margin-top: 15px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    mat-form-field{
+        margin-bottom: 20px;
+
+        mat-error{
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
+
+    #passwordDetails{
+        margin-top: -5px;
+        color: grey;    
+    }
+
+    a{
+        color: variables.$primary-purple-dark;
+        text-decoration: none;
+    }
+}

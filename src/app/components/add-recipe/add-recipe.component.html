@@ -1,0 +1,202 @@
+<div class="spinner" *ngIf="spinnerActive">
+    <mat-progress-spinner
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    <p class="title">{{spinnerText}}</p>
+</div>
+
+
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" *ngIf="!spinnerActive" >
+
+    <p class="title">Add Recipe</p>
+
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input required matInput type="text" formControlName="recipeName">
+        <button class="icon" type="button" mat-button *ngIf="recipeForm.get('recipeName').value !== '' " matSuffix mat-icon-button aria-label="Clear" (click)="recipeForm.get('recipeName').setValue('') ">
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field id="description" appearance="fill" color="accent" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="recipeDescription"> </textarea>
+        <button class="icon" mat-button *ngIf="recipeForm.get('recipeDescription').value !== '' " matSuffix mat-icon-button aria-label="Clear" (click)="recipeForm.get('recipeDescription').setValue('') ">
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <!-------------------------------------------------------------------------------------------------------------------------------->
+    <mat-divider></mat-divider>
+
+    <mat-card *ngIf="ingredientArray[0]?.title !== null">
+        <mat-card-header>
+          <p class="title alt">Ingredients</p>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div>
+                <div *ngFor="let i of ingredientArray; let index = index;">
+                <div>
+                    <p class="ingredientTitle"><strong>{{ i.title }}</strong> 
+                    <span> 
+                        <button class="icon" (click)="openIngredientDialog(i, index)" type="button"><mat-icon>edit</mat-icon></button> 
+                    </span> 
+        
+                    <span> 
+                        <button class="icon purple" (click)="deleteIngredient(index)" type="button"><mat-icon>delete_outline</mat-icon></button> 
+                    </span> 
+                    </p>
+        
+                    <ul>
+                    <li *ngFor="let ing of ingredientArray[index].ingredients">
+                        {{ ing }}
+                    </li>
+                    </ul>
+                </div>                
+                </div>
+            </div>
+        </mat-card-content>
+      </mat-card>
+    
+    <button
+      class="standard green"
+      mat-button 
+      matRipple 
+      matRippleRadius="60"
+      matRippleColor="rgba(94, 252, 130, 0.8)"
+      class="standard green" 
+      type="button" 
+      (click)="openIngredientDialog(i, index)">
+      Add Ingredients
+  </button>
+      
+
+    <!-------------------------------------------------------------------------------------------------------------------------------->
+
+    <mat-divider></mat-divider>
+
+    <mat-card *ngIf="directionArray[0]?.title !== null">
+        <mat-card-header>
+            <p class="title alt">Directions</p>
+            <!-- <mat-card-title>Directions</mat-card-title> -->
+        </mat-card-header>
+
+         <mat-card-content>
+            <div>
+                <div *ngFor="let i of directionArray; let index = index;" class="directionList" >
+                <div>
+                    <p class="ingredientTitle"><strong>{{ i.title }}</strong> 
+                    <span> 
+                        <button (click)="openDirectionDialog(i, index)" class="icon" type="button"><mat-icon>edit</mat-icon></button> 
+                    </span>
+        
+                    <span> 
+                        <button (click)="deleteDirection(index)" class="icon purple" type="button"><mat-icon>delete_outline</mat-icon></button> 
+                    </span> 
+                    </p>
+        
+                    <ul>
+                    <li *ngFor="let dir of directionArray[index].steps">
+                        {{ dir }}
+                    </li>
+                    </ul>
+                </div>
+                
+                </div>
+            </div>
+        </mat-card-content>
+        
+        </mat-card>
+
+    <button
+        class="standard green"
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        class="standard green" 
+        type="button" 
+        (click)="openDirectionDialog(i, index)">
+        Add Directions
+    </button>
+
+    <!-------------------------------------------------------------------------------------------------------------------------------->
+
+    <mat-form-field appearance="fill" color="accent" appearance="outline" id="notesField">
+        <mat-label>Notes</mat-label>
+        <textarea matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="notes"> </textarea>
+        <button mat-button *ngIf="recipeForm.get('notes').value !== '' " matSuffix mat-icon-button aria-label="Clear" (click)="recipeForm.get('notes').setValue('') ">
+        <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field  appearance="fill" color="accent" appearance="standard" id="tagsField">
+        <mat-chip-list #chipList aria-label="Add Tags">
+        <mat-chip color="accent" *ngFor="let tag of tags" [removable]="removable" (removed)="remove(tag)">
+            {{ tag }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Tags"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addTag($event)"
+                >
+        </mat-chip-list>
+        <mat-hint>Press enter to add tags</mat-hint>
+    </mat-form-field>
+
+    <p class="title" id="photo">Add a photo?</p>
+    <div #imgPreview></div>
+    <span>
+        <button (click)="fileInput.click()" class="icon" type="button" *ngIf="!imageSelected" >
+            <mat-icon id="addImage">add_a_photo</mat-icon>
+            <input accept="image/*"(change)="onFileInput($event, imgPreview)" style="display: none;" #fileInput type="file" formControlName="image"/>
+        </button>
+        <button *ngIf="imageSelected" type="button" class="icon" (click)="removeImage(imgPreview)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </span>
+
+    <div id="actionButtons">
+        <button type="submit" class="standard green" *ngIf="!editMode" [disabled]="!recipeForm.valid" 
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        >Add Recipe</button>
+
+        <button type="submit" class="standard green" id="updateButton" *ngIf="editMode"  [disabled]="!recipeForm.valid" 
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        >Update Recipe</button>
+
+        <button 
+            mat-button 
+            matRipple 
+            matRippleRadius="60"
+            matRippleColor="rgba(255, 178, 255, 0.8)"
+            type="button" 
+            class="standard" 
+            (click)="navigate('')">
+            Cancel
+        </button>
+
+        <button 
+            mat-button 
+            matRipple 
+            matRippleRadius="60"
+            matRippleColor="rgba(139, 0, 0, 0.8)"
+            type="button" 
+            class="standard warn"
+            (click)="deleteRecipe()"
+            *ngIf="editMode">
+            Delete Recipe
+        </button>
+    </div>
+
+</form>

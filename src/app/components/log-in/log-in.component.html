@@ -1,0 +1,42 @@
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p class="title">Log In</p>
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="email" required>
+      <mat-error *ngIf="loginForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" required>
+      <mat-error *ngIf="loginForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <p> <a routerLink="/sign-up">Don't have an account? Sign up</a> </p>
+
+    <span>
+        <button
+            class="standard green"
+            matRipple 
+            matRippleRadius="60"
+            matRippleColor="rgba(94, 252, 130, 0.8)" >
+            Log in
+        </button>
+        
+        <!-- 
+            Use the navigate function instead of [routerLink] 
+            simply for a 200ms delay to show the ripple effect
+        -->
+        <button
+            class="standard"
+            (click)="navigate('/view-recipes')"
+            type="button"
+            matRipple 
+            matRippleRadius="60"
+            matRippleColor="rgba(255, 178, 255, 0.8)" >
+            Home
+        </button>
+    </span>
+    
+</form>

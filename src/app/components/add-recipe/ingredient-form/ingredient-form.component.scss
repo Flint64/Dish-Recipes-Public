@@ -1,0 +1,24 @@
+button.standard.green{
+    margin-bottom: 15px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span{
+        display: flex;
+        justify-content: center;
+    }
+
+    input, mat-form-field, textarea{
+        max-width: 80% !important;
+        min-width: 80% !important;
+    }
+}
+
+.reorder{
+    margin-bottom: 10px;
+    margin-top: 0;
+}

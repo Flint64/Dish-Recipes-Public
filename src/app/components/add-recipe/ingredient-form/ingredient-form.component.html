@@ -1,0 +1,90 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
+    <p class="title green">Ingredients</p>
+
+<div formArrayName="recipeIngredients">
+
+    <div *ngFor="let ingredient of recipeIngredients().controls; let empIndex = index">
+        <div [formGroupName]="empIndex">
+      
+            <div class="titleDiv">
+                <mat-form-field  appearance="fill" color="accent" appearance="outline">
+                    <mat-label>Title</mat-label>
+                    <input (focus)="removeFocus($event)" required matInput type="text" class="formControl" formControlName="ingredientTitle">
+                    <button type="button" class="icon" *ngIf="this.recipeForm.get('recipeIngredients').value[empIndex].ingredientTitle !== ''" mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="clearIngredientTitle(empIndex);" >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            
+            <div formArrayName="ingredients" cdkDropList (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let step of ingredients(empIndex).controls; let stepIndex = index" cdkDrag [cdkDragDisabled]="!reorder">
+                <div [formGroupName]="stepIndex">
+                    <mat-form-field  appearance="fill" color="accent" appearance="outline">
+                    <mat-label>Ingredient {{stepIndex + 1}} </mat-label>
+                    <textarea required matInput type="text" cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="ingredient"> </textarea>
+                    <button class="icon" type="button" *ngIf="getIngredient(empIndex, stepIndex) === false" mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="clearIngredient(empIndex, stepIndex);" >
+                    <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button *ngIf="!reorder" class="icon" (click)="removeIngredient(empIndex, stepIndex)"><mat-icon>delete_outline</mat-icon></button>
+                <button *ngIf="reorder" class="icon" cdkDragHandle><mat-icon>drag_handle</mat-icon></button>
+                </div>
+                </div>
+            </div>
+            
+            <button 
+                class="standard green"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(94, 252, 130, 0.8)"
+                type="button"  
+                (click)="addIngredient(empIndex)"> 
+                Add Ingredient     
+            </button>
+
+            <button 
+                class="standard reorder"
+                mat-button 
+                matRipple 
+                matRippleRadius="60"
+                matRippleColor="rgba(255, 178, 255, 0.8)"
+                type="button"
+                (click)="toggleReorder()"> 
+                {{reorderText}}
+            </button>
+            
+            <mat-divider></mat-divider>
+
+      </div>
+  
+    </div>
+  
+  </div>
+
+    <span>
+      <button 
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(94, 252, 130, 0.8)"
+        type="submit" 
+        class="standard" 
+        [disabled]="!recipeForm.valid">
+        Submit  
+      </button>
+
+      <button 
+        mat-button 
+        matRipple 
+        matRippleRadius="60"
+        matRippleColor="rgba(255, 178, 255, 0.8)"
+        type="button" 
+        class="standard" 
+        (click)="onCancel()">
+        Cancel
+      </button>
+    </span>
+
+</form>

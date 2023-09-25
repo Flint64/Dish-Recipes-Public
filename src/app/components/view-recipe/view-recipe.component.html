@@ -1,0 +1,73 @@
+<div class="spinner" *ngIf="spinnerActive">
+    <mat-progress-spinner
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    <p class="title">{{spinnerText}}</p>
+</div>
+
+<div *ngIf="noRecipeFound" id="notFound">
+    <p class="title">Recipe Not Found</p>
+    <button type="button" class="standard" (click)="navigate('/view-recipes')">Back</button>
+</div>
+
+<div class="wrapper" *ngIf="!spinnerActive && !noRecipeFound">
+    <mat-card>
+        <mat-card-header>
+        <mat-card-title *ngIf="recipe !== null">{{recipe?.name}}</mat-card-title>
+        </mat-card-header>
+        <!-- <img mat-card-image [src]="recipe?.url" alt="Not Found" onerror="this.onerror=null; this.src='../../assets/no_image_found.png'; this.style='object-fit: none; margin-top: 30px;' " > -->
+        
+        <img *ngIf="recipe" mat-card-image src="{{recipe.imgUrl}}" onerror="this.onerror=null; this.style='display: none;' " >
+
+        <!-- <div style="width:300px;height:300px;overflow:hidden;margin-bottom:20px;">
+            <div style="height:400px;">
+                 <img mat-card-image style="height:100%;min-height:400px;" src="{{recipe.imgUrl}}" onerror="this.onerror=null; this.style='display: none;' " />
+            </div>
+        </div> -->
+        
+        <mat-card-content>
+
+
+            <p *ngIf="recipe.description" class="description" ><span class="bold">Description:</span> <br> {{ recipe?.description }}</p>
+            <p class="bold">Ingredients:</p>
+            <ul>
+                <div class="ingredientsDiv" *ngFor="let ingredient of recipe?.ingredients" >
+                    <span class="bold" ><p>{{ ingredient.title }}</p></span>
+                    <mat-checkbox class="ingredient"  *ngFor="let ing of ingredient.ingredients" >{{ ing }}</mat-checkbox>
+                </div>
+            </ul>
+            <div class="directions">
+                <span class="bold">Directions:</span> <br><br>
+                <div *ngFor="let direction of recipe?.directions" >
+                    <span class="bold" ><p>{{ direction.title }}</p></span>
+                        <ol>
+                            <li *ngFor="let step of direction.steps" >{{ step }}</li>
+                        </ol>
+                </div>
+
+            </div>
+            <p *ngIf="recipe.notes"><span class="bold">Notes:</span> <br> {{ recipe?.notes }}</p>
+            <p *ngIf="recipe.tags"><span class="bold">Tags:</span> <br> <span *ngFor="let tag of recipe?.tags let i = index" >{{ tag + ", " }}</span> </p>
+            <p> Added by: {{ recipe?.user.username }}</p>
+            <p>Added on: {{ recipe?.date | date:'shortDate' }}</p>
+            
+            
+        </mat-card-content>
+        
+    <div id="dividerDiv">
+        <mat-divider id="divider"></mat-divider>
+    </div>
+        
+        <mat-card-actions id="actions">
+                <button mat-icon-button class="icon" *ngIf="!isFavorite" > <mat-icon class="favorite" (click)="favoriteRecipe(recipe._id)">favorite_border</mat-icon> </button>
+                <button mat-icon-button class="icon favorited" *ngIf="isFavorite" > <mat-icon (click)="deleteFavorite(recipe._id)">favorite</mat-icon> </button>
+                <button mat-icon-button class="icon purple"(click)="editRecipe()" *ngIf="allowEdit"> <mat-icon class="share">edit</mat-icon> </button>
+                <button mat-icon-button class="icon"(click)="deleteRecipe()" *ngIf="allowEdit"> <mat-icon class="share">delete</mat-icon> </button>
+                <button mat-icon-button class="icon purple" > <mat-icon class="share" (click)="shareRecipe(recipe._id)">share</mat-icon> </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <button type="button" class="standard" (click)="navigate('/view-recipes')">Back</button>
+    
+</div>

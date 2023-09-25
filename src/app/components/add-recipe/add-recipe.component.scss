@@ -1,0 +1,68 @@
+@use '../../../utilities/variables';
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    mat-form-field{
+        button{
+            background-color: transparent;
+            border: none;
+        }
+    }
+
+    #notesField{
+        margin-top: 20px;
+    }
+
+    #tagsField{
+        padding-bottom: 10px;
+        width: 80%;
+    }
+
+    #addImage{
+        color: variables.$primary-purple-dark;
+    }
+}
+
+ul{
+    li{
+        word-break: break-word;
+    }
+}
+
+#photo{
+    color: variables.$primary-green;
+}
+
+mat-card{
+    width: 65%;
+}
+
+button.standard.green{
+    margin-bottom: 20px;
+}
+
+button.standard{
+    margin-top: 20px;
+}
+
+button.warn{
+    margin-top: 0;
+}
+
+#description{
+    margin-bottom: 10px;
+}
+
+#actionButtons{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+#updateButton{
+    // margin-top: 15px;
+}

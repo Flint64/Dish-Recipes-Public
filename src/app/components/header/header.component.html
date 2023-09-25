@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <div>
+        <span id="title" [routerLink]="['/view-recipes']" >Dish Recipes</span>
+    </div>
+    <div>
+        <button mat-icon-button (click)="navigate('/log-in')" *ngIf="!isAuthenticated">
+            <mat-icon>login</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="navigate('/view-recipes')" *ngIf="isAuthenticated">
+            <mat-icon>logout</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="navigate('/profile')" *ngIf="isAuthenticated">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        
+    </div>
+</mat-toolbar>

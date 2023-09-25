@@ -1,0 +1,158 @@
+@use './utilities/variables';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+@import './utilities/variables';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$recipeBook2022-primary: mat-palette($mat-green);
+$recipeBook2022-accent: mat-palette($mat-purple, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$recipeBook2022-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color1" or "typography".
+$recipeBook2022-theme: mat-light-theme((
+  color: (
+    primary: $recipeBook2022-primary,
+    accent: $recipeBook2022-accent,
+    warn: $recipeBook2022-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($recipeBook2022-theme);
+
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; margin: 0; padding: 0; }
+// body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #fafafa; }
+body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #fffbfb;; }
+
+button.standard{
+  cursor: pointer;
+  text-align: center;
+  width: 130px;
+  height: 45px;
+  background-color:  variables.$primary-purple-dark;
+  color: white;
+  border: none;
+  font-size: 1em;
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  &:disabled{
+    background-color: lightgrey;
+  }
+}
+
+button.icon{
+  background-color: transparent;
+  border: none;
+}
+
+button.icon.purple{
+  color: variables.$primary-purple-dark;
+}
+
+button.icon.warn{
+  color: crimson;
+  background-color: transparent;
+}
+
+button.icon.search{
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  // border: 1px solid gray;
+  margin-top: 5px;
+  width: 56px;
+}
+
+button.icon.favorited{
+  color: variables.$primary-green;
+  background-color: transparent;
+}
+
+button.green{
+  background-color: variables.$primary-green;
+  &:disabled{
+    background-color: lightgrey;
+  }
+}
+
+button.icon.fixed{
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+  background-color: variables.$primary-green;
+  color: white;
+  position: fixed;
+  z-index: 5;
+  bottom: 15px;
+  right: 15px;
+}
+
+button.warn{
+  background-color: crimson;
+  &:disabled{
+    background-color: lightgrey;
+  }
+}
+
+p.title{
+  font-size: 2em;
+  font-family: 'EB Garamond', serif;
+  color:  variables.$primary-purple;
+  text-shadow:
+  -.8px -.8px 0 black,  
+   .8px -.8px 0 black,
+   -.8px .8px 0 black,
+    .8px .8px 0 black;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+p.title.green{
+  color: variables.$primary-green;
+}
+
+p.title.alt{
+  font-size: 2em;
+  font-family: 'EB Garamond', serif;
+  // color: variables.$primary-purple-dark;
+  color: black;
+  text-shadow: none;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+div.spinner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.noData{
+  display: flex;
+  justify-content: center;
+}
+
+.mat-checkbox-layout { white-space: break-spaces !important; }
+
+// mat-checkbox.ingredient{
+//   word-break: break-all;
+//   width: 5em;
+// }
